@@ -1,12 +1,32 @@
 <template>
-  <div>推荐页面</div>
+  <div class="recommend">
+    <div class="recommend-content">
+      <div v-if="recommends.length" class="slider-wrapper">
+        <slider>
+          <div v-for="item in recommends" :key="item">
+            <a :href="item.linkUrl">
+              <img :src="item.picUrl" />
+            </a>
+          </div>
+        </slider>
+      </div>
+      <div class="list-title">热门歌单推荐</div>
+      <ul></ul>
+    </div>
+  </div>
 </template>
 
 <script type='text/ecmascript-6'>
+import slider from "base/slider/slider";
 import { getRecommend } from "api/recommend";
 import { ERR_OK } from "api/config";
 
 export default {
+  data() {
+    return {
+      recommends: []
+    };
+  },
   created() {
     //页面加载完的钩子，这里调用自己的方法_getRecommend
     this._getRecommend();
@@ -16,10 +36,13 @@ export default {
       //实际上是使用了 api/recommend 中的 getRecommend()
       getRecommend().then(resp => {
         if (resp.code === ERR_OK) {
-          console.log(resp.data.slider);
+          this.recommends = resp.data.slider;
         }
       });
     }
+  },
+  components: {
+    slider
   }
 };
 </script>

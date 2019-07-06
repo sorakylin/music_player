@@ -21,6 +21,7 @@ module.exports = {
         extensions: ['.js', '.vue', '.json'],
         alias: {
           'src': path.resolve(__dirname, './src'),
+          'base': path.resolve(__dirname, './src/base'),
           'api': path.resolve(__dirname, './src/api'),
           'common': path.resolve(__dirname, './src/common'),
           'components': path.resolve(__dirname, './src/components')
